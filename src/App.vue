@@ -77,6 +77,7 @@ h1{
 }
 
 .buttonDiv{
+  position: relative;
   margin: 0px 0px;
   width: 90vw;
   height: 50px;
