@@ -1,6 +1,19 @@
 /* color palette from <https://github.com/vuejs/theme> */
-
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(./bg.jpg);
+  background-size: cover;
+  background-blend-mode: multiply;
+  font-weight: normal;
+}
 :root {
+  --green-main: #037070;
+  --red-main: #a70a20;
+  --light-blue: #0a81e0;
+  --hard-blue: #005474;
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
   --vt-c-white-mute: #f2f2f2;
@@ -32,7 +45,8 @@
   --color-border-hover: var(--vt-c-divider-light-1);
 
   --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
+  --color-text: var(--red-main);
+  --bttn-color-text: var(--hard-blue);
 
   --section-gap: 160px;
 }
@@ -47,15 +61,18 @@
     --color-border-hover: var(--vt-c-divider-dark-1);
 
     --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-text: var(--green-main);
+    --bttn-color-text: var(--light-blue);
   }
 }
 
 
 
 body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   justify-content: center;
-  
   display: flex;
   min-height: 100vh;
   color: var(--color-text);

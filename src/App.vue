@@ -1,111 +1,51 @@
-<script>
-import { ref } from "vue"
-import axios from "axios"
-export default {
-  name: "App",
-  setup() {
-    let gameOver = ref(true),
-      cardOne = ref({}),
-      cardTwo = ref({}),
-      deckID = ref(null);
-    var deck = []
-
-    async function getDeck() {
-      gameOver.value = false
-      if (deckID.value == null) {
-        // criar novo deck
-        const { data } = await axios.get("https://deckofcardsapi.com/api/deck/new/shuffle/?count=1")
-        deckID.value = data.deck_id
-        console.log(data)
-
-      }
-
-    } //getDeck()
-    async function getCards() {
-      if (deck.length == 0) {
-        const { data } = await axios.get("https://deckofcardsapi.com/api/deck/" + deckID.value + "/draw/?count=21")
-
-        const remaining = data.cards.remaining
-        const { cards } = data
-
-        let i = 0;
-        cards.forEach(element => {
-          deck[i] = cards[i]
-          i++;
-        });
-
-
-        cardOne.value = cards[0]
-        cardTwo.value = cards[1]
-        console.log(deck)
-
-      }
-
-    }
-
-    function um() {
-      // coluna 1(0) escolhida
-      // coluna 1(0) ocupara posicao do meio (1)
-      let aux = []
-      let i = 1
-      for (let j = 0; j < 7; j++) {
-        
-        aux[j] = deck[i];
-        deck[j] = aux[j];
-        i+=3;
-        
-      }
-      console.table(aux);
-      console.table(deck)
-
-
-    }
-
-    function dois() {
-
-    }
-
-    function tres() {
-
-    }
-
-
-
-
-
-    return { getDeck, getCards, cardOne, cardTwo, deck, um }
-  },
-
-} //export default
-
-
-
-
-
-
-</script>
-
 <template>
-  <h1>Matemagica</h1>
-  <div id="gameBoard">
-    <div class="card" v-for="card in deck">
-      <img :src="card.image" :alt="card.code" />
+  <div>
+
+    <div v-if="deck">
+      <h1>Matemagica</h1>
+      <div class="card-grid">
+        <div v-for="card in cards" :key="card.code" class="card">
+          <img :src="card.image" :alt="card.code" class="card-image" />
+        </div>
+      </div>
+      <div class="buttonDiv">
+        <button @click="one">1</button>
+        <button @click="two">2</button>
+        <button @click="three">3</button>
+      </div>
+
+    </div>
+    <div v-else>
+      <h1>Matemágica</h1>
+      <div class="msg">
+        <p>Bem vindo</p>
+        <p>Ao iniciar o jogo, você receberá 21 cartas</p>
+        <p>Escolha uma, e anote em um papel, ou a memorize</p>
+        <p>Após escolher a carta, indique em qual coluna ela aparece</p>
+        <p>Ao final, o Matemágico adivinhará qual é a sua carta</p>
+        <button @click="getDeck">Iniciar Novo Jogo</button>
+      </div>
     </div>
 
-  </div>
-  <div class="navi3">
-    <button v-on:click="um()">1</button>
-    <button>2</button>
-    <button>3</button>
-  </div>
+    <div v-if="contador == 3">
+      <div class="msg">
+        <h2>Sua Carta é:</h2>
+      </div>
+      <div :key="cards[10].code" class="card">
+        <img :src="cards[10].image" :alt="cards[10].code">
+      </div>
+    </div>
 
-  <div class="navi2">
-    <button v-on:click="getDeck()">Novo Baralho</button>
-    <button v-on:click="getCards()">Iniciar Jogo</button>
+
   </div>
 </template>
 
-<style scoped>
+<style>
+@font-face {
+  font-family: "BigSpace";
+  src: local("BigSpace"), url("./assets/BigSpace.ttf") format("truetype");
+}
+
 *,
 *::before,
 *::after {
@@ -113,71 +53,185 @@ export default {
   margin: 0px;
   font-weight: normal;
   font-family: "BigSpace";
+  color: var(--color-text);
 
 }
 
-@font-face {
-  font-family: "BigSpace";
-  src: local("BigSpace"), url("./assets/BigSpace.ttf") format("truetype");
+.msg p {
+  text-shadow: 1px 1px 2px black;
+  color: var(--bttn-color-text);
+  font-size: 1.3em;
 }
 
-h1 {
+div{
+  display: inline;
+  justify-content: center;
   text-align: center;
+
 }
 
-.navi3 {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+h1{
+  background-color: var(--color-background-mute);
+  text-align: center;
+  text-shadow: 1px 2px 10px black;
+}
+
+.buttonDiv{
+  margin: 0px 0px;
   width: 90vw;
-  height: auto;
-  display: grid;
-  align-items: center;
-  justify-content: space-around;
-  grid-template-columns: 90px 90px 90px;
-
-}
-
-.navi2 {
+  height: 50px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  width: 90vw;
-  height: auto;
-  display: grid;
-  justify-content: space-around;
-  grid-template-columns: 90px 90px;
-  margin-top: 10px;
+  background-color: var(--color-text);
 }
 
+button{
+  background-color: var(--vt-c-indigo);
+  height: 60px;
+  width: 60px;
+  color: var(--bttn-color-text);
+}
 
-
-#gameBoard {
+.card-grid {
+  
   width: 90vw;
-  height: auto;
+  height: 90vh;
   display: grid;
   align-items: center;
-  justify-content: space-around;
-  grid-template-columns: 90px 90px 90px;
-  grid-template-rows: repeat(7, 80px);
-  gap: 0px 0px;
-  grid-column-start: 1;
-  grid-column-end: 3;
-
-
-
+  justify-content: center;
+  grid-template-rows: repeat(7, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0px 80px;
 }
 
 .card {
+  scale: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  scale: .75;
-  width: 100px;
-  height: 100px;
+  padding: 1px;
 }
 
-.card img {
-  max-width: 100%;
-  max-height: 100%;
+.card-image {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
 }
 </style>
+
+<script>
+export default {
+  data() {
+    name: "App"
+    return {
+      deck: null,
+      cards: [],
+      contador: 0
+    };
+  },
+  methods: {
+    async getDeck() {
+      if (this.deck == null) {
+        try {
+          this.contador = 0;
+          const response = await fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=21');
+          const data = await response.json();
+          this.deck = data.deck_id;
+          this.cards = data.cards;
+          console.table(this.cards)
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+
+    },
+    async one() {
+
+      let column1 = []
+      let column2 = []
+      let column3 = []
+      let i = 0;
+      let j = 0;
+      for (i = 0; i < 21; i += 3) {
+        column1[j] = this.cards[i];
+        column2[j] = this.cards[i + 1];
+        column3[j] = this.cards[i + 2];
+        j++;
+      }
+
+
+      for (i = 0; i < 7; i++) {
+        this.cards[i] = column2[i]
+        this.cards[i + 7] = column1[i]
+        this.cards[i + 14] = column3[i]
+      }
+      this.iterador()
+
+
+
+    },
+    async two() {
+
+      let column1 = []
+      let column2 = []
+      let column3 = []
+      let i = 0;
+      let j = 0;
+      for (i = 1; i < 21; i += 3) {
+        column2[j] = this.cards[i]
+        column1[j] = this.cards[i - 1]
+        column3[j] = this.cards[i + 1]
+        j++;
+      }
+
+      for (i = 0; i < 7; i++) {
+        this.cards[i] = column1[i]
+        this.cards[i + 7] = column2[i]
+        this.cards[i + 14] = column3[i]
+      }
+      this.iterador()
+    },
+    async three() {
+
+      let column1 = []
+      let column2 = []
+      let column3 = []
+      let i = 0;
+      let j = 0;
+      for (i = 2; i < 21; i += 3) {
+        column3[j] = this.cards[i]
+        column2[j] = this.cards[i - 1]
+        column1[j] = this.cards[i - 2]
+        j++;
+      }
+
+
+
+      for (i = 0; i < 7; i++) {
+        this.cards[i] = column1[i]
+        this.cards[i + 7] = column3[i]
+        this.cards[i + 14] = column2[i]
+      }
+      this.iterador()
+
+    },
+
+    async iterador() {
+      this.contador += 1;
+      console.log(this.contador)
+      if (this.contador == 3) {
+        this.deck = null
+        console.log(this.cards[10])
+      }
+
+
+    },
+
+
+
+
+  }
+};
+</script>
