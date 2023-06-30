@@ -1,5 +1,4 @@
 <template>
-  <div>
 
     <div v-if="deck">
       <h1>Matemagica</h1>
@@ -21,12 +20,10 @@
         <p>Bem vindo</p>
         <p>Ao iniciar o jogo, você receberá 21 cartas</p>
         <p>Escolha uma, e anote em um papel, ou a memorize</p>
-        <p>Após escolher a carta, indique em qual coluna ela aparece</p>
+        <p>Após escolher a carta, indique em qual coluna (ou linha na versão Desktop/Paisagem) ela aparece</p>
         <p>Ao final, o Matemágico adivinhará qual é a sua carta</p>
-        <div>
-          <button class="gameButton" @click="getDeck">Iniciar Novo Jogo</button>  
-        </div>
-        
+        <button class="gameButton" @click="getDeck">Iniciar Novo Jogo</button>
+
       </div>
     </div>
 
@@ -40,7 +37,6 @@
     </div>
 
 
-  </div>
 </template>
 
 <style>
@@ -60,29 +56,38 @@
 
 }
 
+@media(max-width: 640px) {
+  body {
+    background-size: cover;
+  }
+
+}
+
 .msg p {
   text-shadow: 1px 1px 2px black;
   color: var(--color-text);
   font-size: 1.3em;
 }
 
-div{
-  display: inline;
+div {
+  margin: 0;
+  display: inline-block;
   justify-content: center;
   text-align: center;
 
 }
 
-h1{
+h1 {
+  width: 100vw;
   background-color: var(--text-shadow);
   text-align: center;
   text-shadow: 1px 2px 10px black;
   color: var(--h1-color)
 }
 
-.buttonDiv{
+.buttonDiv {
   margin: 0px 0px;
-  width: 90vw;
+  width: 100vw;
   height: 50px;
   display: flex;
   align-items: center;
@@ -90,7 +95,7 @@ h1{
   background-color: var(--vt-c-black-mute);
 }
 
-.playButton{
+.playButton {
   font-size: 40px;
   background-color: var(--vt-c-divider-dark-1);
   height: 100%;
@@ -98,14 +103,13 @@ h1{
   color: var(--color-text);
 }
 
-gameButton{
+gameButton {
   scale: 1.5;
   text-align: justify;
 }
 
 .card-grid {
-  
-  width: 90vw;
+  width: 100vw;
   height: min-content;
   display: grid;
   align-items: center;
@@ -127,6 +131,42 @@ gameButton{
   width: 100%;
   max-width: 150px;
   height: auto;
+}
+
+@media (min-width: 1024px) {
+  .card-grid {
+    position: fixed;
+    top: 50%;
+    left: 70%;
+    transform: rotateZ(90deg);
+    width: 35%;
+    height: 10%;
+    margin: 0px 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding: 0px;
+  }
+
+  .card-image {
+    scale: 1;
+    transform: rotateZ(90deg);
+  }
+
+  .buttonDiv{
+    position: fixed;
+    transform: rotateZ(90deg);
+    width: 500px;
+    height: 70px;
+    top: 50vh;
+    right: 79vw;
+  }
+
+  .playButton{
+    transform: rotateZ(-90deg);
+    height: 100%;
+    width: 70px;
+    border: none;
+  }
 }
 </style>
 
