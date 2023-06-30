@@ -9,9 +9,9 @@
         </div>
       </div>
       <div class="buttonDiv">
-        <button @click="one">1</button>
-        <button @click="two">2</button>
-        <button @click="three">3</button>
+        <button class="playButton" @click="one">1</button>
+        <button class="playButton" @click="two">2</button>
+        <button class="playButton" @click="three">3</button>
       </div>
 
     </div>
@@ -59,7 +59,7 @@
 
 .msg p {
   text-shadow: 1px 1px 2px black;
-  color: var(--bttn-color-text);
+  color: var(--color-text);
   font-size: 1.3em;
 }
 
@@ -71,33 +71,33 @@ div{
 }
 
 h1{
-  background-color: var(--color-background-mute);
+  background-color: var(--vt-c-divider-light-2);
   text-align: center;
   text-shadow: 1px 2px 10px black;
 }
 
 .buttonDiv{
-  position: relative;
   margin: 0px 0px;
   width: 90vw;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--color-text);
+  background-color: var(--vt-c-black-mute);
 }
 
-button{
-  background-color: var(--vt-c-indigo);
-  height: 60px;
+.playButton{
+  font-size: 30px;
+  background-color: var(--vt-c-divider-dark-1);
+  height: 100%;
   width: 60px;
-  color: var(--bttn-color-text);
+  color: var(--color-text);
 }
 
 .card-grid {
   
   width: 90vw;
-  height: 90vh;
+  height: min-content;
   display: grid;
   align-items: center;
   justify-content: center;
