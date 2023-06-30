@@ -3,17 +3,22 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.8);
   background-image: url(./bg.jpg);
   background-size: cover;
   background-blend-mode: multiply;
   font-weight: normal;
 }
+
+
 :root {
-  --green-main: #037070;
-  --red-main: #a70a20;
-  --light-blue: #0a81e0;
-  --hard-blue: #005474;
+  --green-main: #025951;
+  --light-green: #038C7F;
+  --green-shdw: #01403A;
+  --red-main: #F2274C;
+  --red-shdw: #661020;
+  --light-blue: #0476D9;
+  --hard-blue: #034C8C;
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
   --vt-c-white-mute: #f2f2f2;
@@ -46,12 +51,14 @@
 
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--red-main);
+  --text-shadow: var(--red-shdw);
   --bttn-color-text: var(--hard-blue);
-
+  --h1-color: var(--red-main);
+  
   --section-gap: 160px;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --color-background: var(--vt-c-black);
     --color-background-soft: var(--vt-c-black-soft);
@@ -61,7 +68,9 @@
     --color-border-hover: var(--vt-c-divider-dark-1);
 
     --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--green-main);
+    --color-text: var(--light-green);
+    --text-shadow: var(--green-shdw);
+    --h1-color: var(--light-green);
     --bttn-color-text: var(--light-blue);
   }
 }

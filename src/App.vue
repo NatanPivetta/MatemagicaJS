@@ -23,7 +23,10 @@
         <p>Escolha uma, e anote em um papel, ou a memorize</p>
         <p>Após escolher a carta, indique em qual coluna ela aparece</p>
         <p>Ao final, o Matemágico adivinhará qual é a sua carta</p>
-        <button @click="getDeck">Iniciar Novo Jogo</button>
+        <div>
+          <button class="gameButton" @click="getDeck">Iniciar Novo Jogo</button>  
+        </div>
+        
       </div>
     </div>
 
@@ -71,9 +74,10 @@ div{
 }
 
 h1{
-  background-color: var(--vt-c-divider-light-2);
+  background-color: var(--text-shadow);
   text-align: center;
   text-shadow: 1px 2px 10px black;
+  color: var(--h1-color)
 }
 
 .buttonDiv{
@@ -87,11 +91,16 @@ h1{
 }
 
 .playButton{
-  font-size: 30px;
+  font-size: 40px;
   background-color: var(--vt-c-divider-dark-1);
   height: 100%;
   width: 60px;
   color: var(--color-text);
+}
+
+gameButton{
+  scale: 1.5;
+  text-align: justify;
 }
 
 .card-grid {
